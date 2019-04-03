@@ -15,13 +15,20 @@ export const fetchPosts = () => dispatch => {
         });
 }
 
-export const newPost = () => dispatch => {
-    fetch('https://jsonplaceholder.typicode.com/post')
+export const createPost = postData => dispatch => {
+    fetch('https://jsonplaceholder.typicode.com/posts', 
+        {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(postData)
+        })
         .then(res => res.json())
-        .then(post => {
-            dispatch({ 
+        .then(newPost => (
+            dispatch({
                 type: NEW_POST,
-                payload: post
-            });
-        });
+                payload: newPost
+            })
+        ));
 }
